@@ -1,0 +1,11 @@
+[project]
+name = "cae-lab"
+version = "0.1.0"
+dependencies = ["numpy"]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["libs"]
