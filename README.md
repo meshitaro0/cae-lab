@@ -10,6 +10,7 @@ CAE の結果を力学から読み解き、最小のソルバ実装で確かめ�
 - [学習ログ](docs/learning-log.md)
 - [用語集](docs/glossary.md)
 - [Phase 1: CAE結果を読むための材料力学](docs/texts/phase1-stress-strain.md)
+- [Phase 5: J2塑性と材料点更新](docs/texts/phase5-j2-plasticity.md) / [演習](notebooks/Phase5.ipynb)
 
 ## Setup
 
