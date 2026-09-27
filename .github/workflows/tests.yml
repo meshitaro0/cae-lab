@@ -1,0 +1,34 @@
+# mainへのpushとすべてのPRで、ライブラリのテストと文書リンクの検査を実行する。
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch: # GitHubのActionsタブから手動実行できるようにする
+
+permissions:
+  contents: read # リポジトリの読み取りだけを許可する
+
+jobs:
+  unittest:
+    name: Python ${{ matrix.python-version }} / ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        # pyproject.toml の requires-python の下限と、手元の開発環境のバージョン
+        python-version: ["3.10", "3.12"]
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      # 編集可能モード（-e）ではなく通常インストールにし、パッケージの構成漏れも検出する
+      - name: Install
+        run: python -m pip install .
+      - name: Test
+        run: python -m unittest discover -s tests -v

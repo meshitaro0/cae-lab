@@ -2,7 +2,7 @@
 
 最終確認：同日の追加修正を確認し、**98 / 100、Phase 4完了**へ更新した。以下の95点評価は追加修正前の履歴として残す。最新の判定は末尾を参照。
 
-対象：[Phase4.ipynb](../../notebooks/Phase4.ipynb)の演習2〜5。[前回評価](phase4-feedback-2026-09-13.md)を上書きせず、今回の確認を記録する。Notebookは編集していない。
+対象：[Phase4.ipynb](../../../notebooks/solid-mechanics/Phase4.ipynb)の演習2〜5。[前回評価](phase4-feedback-2026-09-13.md)を上書きせず、今回の確認を記録する。Notebookは編集していない。
 
 ## 評価：95 / 100（前回79）
 
