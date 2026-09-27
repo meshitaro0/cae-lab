@@ -3,7 +3,7 @@
 Phase 4では、節点変位からひずみを求め、弾性行列を掛けて応力へ進んだ。塑性では、同じ現在ひずみでも過去の負荷によって応力が変わる。この履歴を積分点に保存し、次の増分へ引き継ぐことが今回の中心である。
 
 - 前提：[Phase 2の不変量](phase2-tensors-invariants.md)、[Phase 4の最小FEM](phase4-minimal-fem.md)。
-- 演習・答案：[Phase5.ipynb](../../notebooks/Phase5.ipynb)。本文には答案欄を置かない。
+- 演習・答案：[Phase5.ipynb](../../../notebooks/solid-mechanics/Phase5.ipynb)。本文には答案欄を置かない。
 - 到達点：降伏条件・流れ則・硬化則の役割を分けて説明し、三次元J2材料点更新をNumPyで実装・検証できる。
 - 必須範囲：微小ひずみ、等方線形弾性、関連流れ則、線形等方硬化、速度非依存、等温、損傷なし。全体非線形FEMの実装と有限変形塑性は発展範囲とする。
 
@@ -20,7 +20,7 @@ $$
 
 $\boldsymbol\sigma$ はCauchy応力（二階テンソル、MPa）、$\mathbb C$ は弾性剛性（四階テンソル、MPa）。コロンは二重縮約で、二階同士なら $\mathbf A:\mathbf B=\sum_{i,j=1}^3 A_{ij}B_{ij}$、四階と二階なら $(\mathbb C:\mathbf A)_{ij}=\sum_{k,l=1}^3 C_{ijkl}A_{kl}$ とする。添字は三つの直交座標成分を表す。
 
-弾性だけなら現在の全ひずみで応力が決まる。塑性では $\boldsymbol\varepsilon^p$ が追加で必要になる。これが[内部変数](../glossary.md#内部変数)を保存する理由である。微視的な転位構造などをこの教材で直接計算するわけではなく、その履歴の効果を少数の変数でモデル化する。
+弾性だけなら現在の全ひずみで応力が決まる。塑性では $\boldsymbol\varepsilon^p$ が追加で必要になる。これが[内部変数](../../glossary.md#内部変数)を保存する理由である。微視的な転位構造などをこの教材で直接計算するわけではなく、その履歴の効果を少数の変数でモデル化する。
 
 ### 等方弾性を体積変化と形状変化へ分ける
 
@@ -47,7 +47,7 @@ $$
 
 一軸応力 $\operatorname{diag}(\sigma,0,0)$ では $q=|\sigma|$、純せん断応力 $\sigma_{xy}=\sigma_{yx}=\tau$ では $q=\sqrt3|\tau|$、静水圧応力 $p\mathbf I$ では $q=0$。$\operatorname{diag}$ は指定成分を対角に並べる演算、$\sigma,\tau$ はここだけのスカラー応力である。
 
-[降伏関数](../glossary.md#降伏関数) $f$（MPa）を
+[降伏関数](../../glossary.md#降伏関数) $f$（MPa）を
 
 $$
 f(\boldsymbol\sigma,\alpha)=q-\sigma_y(\alpha),\qquad
@@ -62,7 +62,7 @@ $$
 
 ## 3. 流れ則から相当塑性ひずみを導く
 
-時間 $t$ による微分を上付きドットで表す。塑性乗数 $\dot\lambda\ge0$ は塑性流動の速さを決めるスカラー（1/時間）。[関連流れ則](../glossary.md#関連流れ則)は降伏関数の応力勾配を塑性ひずみ速度の方向に取る。
+時間 $t$ による微分を上付きドットで表す。塑性乗数 $\dot\lambda\ge0$ は塑性流動の速さを決めるスカラー（1/時間）。[関連流れ則](../../glossary.md#関連流れ則)は降伏関数の応力勾配を塑性ひずみ速度の方向に取る。
 
 $$
 \dot{\boldsymbol\varepsilon}^p=\dot\lambda\frac{\partial f}{\partial\boldsymbol\sigma}.
@@ -77,7 +77,7 @@ $$
 
 $\mathbf n$ は無次元の二階テンソルであり、空間内の面法線ベクトルではない。$\mathbf n:\mathbf n=3/2$ なので単位ノルムでもない。トレースはゼロで、$\operatorname{tr}\dot{\boldsymbol\varepsilon}^p=0$、すなわち塑性体積変化がないことが導ける。弾性による体積変化は残る。
 
-[累積相当塑性ひずみ](../glossary.md#累積相当塑性ひずみ)の定義を
+[累積相当塑性ひずみ](../../glossary.md#累積相当塑性ひずみ)の定義を
 
 $$
 \dot\alpha=\sqrt{\frac23\dot{\boldsymbol\varepsilon}^p:\dot{\boldsymbol\varepsilon}^p},\qquad
@@ -167,7 +167,7 @@ $$
 \alpha_{n+1}=\alpha_n+\Delta\alpha.
 $$
 
-これが[radial return](../glossary.md#radial-return)である。縮めるのは偏差応力で、平均応力は試行値のまま。応力テンソル全体を同じ比率で縮めると、塑性体積変化なしというモデルを壊す。非線形硬化なら $q^{\mathrm{tr}}-3G\Delta\alpha-\sigma_y(\alpha_n+\Delta\alpha)=0$ というスカラー方程式の局所反復が必要になる場合がある。
+これが[radial return](../../glossary.md#radial-return)である。縮めるのは偏差応力で、平均応力は試行値のまま。応力テンソル全体を同じ比率で縮めると、塑性体積変化なしというモデルを壊す。非線形硬化なら $q^{\mathrm{tr}}-3G\Delta\alpha-\sigma_y(\alpha_n+\Delta\alpha)=0$ というスカラー方程式の局所反復が必要になる場合がある。
 
 この閉形式の更新は、一定弾性係数・線形等方硬化に対する離散方程式の解である。任意の連続負荷経路を一増分で厳密に積分できるという意味ではない。途中の除荷や方向変化を増分端だけから復元することはできない。
 
@@ -195,7 +195,7 @@ $$
 
 $\Omega$ は解析領域、$\mathbf r$ は残差ベクトル。未知変位を仮定するたびに積分点のひずみが変わり、応力も変わるため、弾性のように一定の剛性を一度解くだけでは済まない。
 
-陰解法のNewton反復では、反復番号 $k$、自由自由度を示す添字 $f$、変位修正ベクトル $\delta\mathbf d_f$ を使い、$\mathbf K_{T,ff}\delta\mathbf d_f=-\mathbf r_f$ を解く。拘束自由度の残差は反力になる。接線剛性行列 $\mathbf K_T$ は、この材料更新をひずみで微分した[整合接線](../glossary.md#整合接線)の行列表現 $\mathbf D_{\mathrm{alg}}$ を使って
+陰解法のNewton反復では、反復番号 $k$、自由自由度を示す添字 $f$、変位修正ベクトル $\delta\mathbf d_f$ を使い、$\mathbf K_{T,ff}\delta\mathbf d_f=-\mathbf r_f$ を解く。拘束自由度の残差は反力になる。接線剛性行列 $\mathbf K_T$ は、この材料更新をひずみで微分した[整合接線](../../glossary.md#整合接線)の行列表現 $\mathbf D_{\mathrm{alg}}$ を使って
 
 $$
 \mathbf K_T=\int_\Omega\mathbf B^T\mathbf D_{\mathrm{alg}}\mathbf B\,d\Omega
@@ -242,7 +242,7 @@ LS-DYNA等では、材料カード、硬化の種類、速度・温度依存、�
 
 - **平面ひずみ**：全ひずみの面外成分がゼロでも面外応力・面外塑性ひずみは一般にゼロでない。3D内部状態を保持する。
 - **平面応力**：面外応力ゼロを満たす面外ひずみを同時に求める必要がある。3D更新後に応力成分をゼロへ上書きする方法は不整合。
-- **有限変形**：[物質座標・応力測度](../glossary.md#物質座標と応力測度)を区別する。基準位置ベクトル $\mathbf X$ と現在位置ベクトル $\mathbf x$ から変形勾配 $\mathbf F=\partial\mathbf x/\partial\mathbf X$（二階テンソル）を定義する。有限塑性では $\mathbf F=\mathbf F^e\mathbf F^p$ の乗算分解などを用いる。Cauchy応力は現在面積基準で、基準面積に対応する応力測度とは異なる。微小ひずみの加算分解と固定座標の増分更新を大回転へそのまま拡張しない。
+- **有限変形**：[物質座標・応力測度](../../glossary.md#物質座標と応力測度)を区別する。基準位置ベクトル $\mathbf X$ と現在位置ベクトル $\mathbf x$ から変形勾配 $\mathbf F=\partial\mathbf x/\partial\mathbf X$（二階テンソル）を定義する。有限塑性では $\mathbf F=\mathbf F^e\mathbf F^p$ の乗算分解などを用いる。Cauchy応力は現在面積基準で、基準面積に対応する応力測度とは異なる。微小ひずみの加算分解と固定座標の増分更新を大回転へそのまま拡張しない。
 - **異方性・圧力依存・速度依存**：降伏面・流れ則・時間発展式が変わるため、上の閉形式を共用できるとは限らない。
 - **損傷・軟化**：本教材の $H\ge0$ とは別のモデル設計と検証を要する。破壊・局所化・メッシュ依存の扱いをPhase 6以降のレビュー課題へつなぐ。
 

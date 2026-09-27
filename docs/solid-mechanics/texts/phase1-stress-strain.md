@@ -15,7 +15,7 @@ LS-DYNAなどで見るvon Mises応力、主応力、ひずみ、塑性ひずみ�
  -> 外挿・平均を含むコンター表示
 ```
 
-本文ではこの鎖を右から左へたどる。演習は [Phase 1 演習ノートブック](../../notebooks/Phase1.ipynb) で行う。
+本文ではこの鎖を右から左へたどる。演習は [Phase 1 演習ノートブック](../../../notebooks/solid-mechanics/Phase1.ipynb) で行う。
 
 ## 1. 応力：面を通じた内力の局所表現
 
@@ -29,7 +29,7 @@ LS-DYNAなどで見るvon Mises応力、主応力、ひずみ、塑性ひずみ�
 
 と書ける。ここで $\mathbf{n}$ と $\mathbf{t}$ は3成分ベクトル、$\boldsymbol{\sigma}$ は $3\times3$ 行列で表現できる二階テンソルである。有限次元ベクトル空間では、線形写像と基底を選んだ表現行列は一対一に対応する。ただし応力は座標系を変えると成分が変換される幾何学的な対象であり、行列はその座標表示である。
 
-通常の連続体では角運動量保存から $\boldsymbol{\sigma}=\boldsymbol{\sigma}^T$ となる。詳しい定義は[用語集](../glossary.md#cauchy応力)を参照する。
+通常の連続体では角運動量保存から $\boldsymbol{\sigma}=\boldsymbol{\sigma}^T$ となる。詳しい定義は[用語集](../../glossary.md#cauchy応力)を参照する。
 
 ### CAEで確認すること
 
@@ -58,7 +58,7 @@ FEMで基本未知量になるのは、通常は節点変位である。連続�
 \boldsymbol{\varepsilon}_h=\mathbf{B}\mathbf{d}
 ```
 
-となる。$\mathbf{B}$ は $\mathbf{N}$ の空間微分を集めた「ひずみ–変位行列」である。次のPhaseで導出する。[形状関数](../glossary.md#形状関数)と[積分点](../glossary.md#積分点)も参照する。
+となる。$\mathbf{B}$ は $\mathbf{N}$ の空間微分を集めた「ひずみ–変位行列」である。次のPhaseで導出する。[形状関数](../../glossary.md#形状関数)と[積分点](../../glossary.md#積分点)も参照する。
 
 ## 3. 構成則：ひずみから応力への材料モデル
 
