@@ -4,6 +4,31 @@
 恒久的な特性は PROFILE.md、学習順序は ROADMAP.md へ反映する。
 -->
 
+## 2026-09-27 — mechlite 整理時に見つかった配布コードの不具合（Phase 1）
+
+### 対象
+
+- 演習：[Phase1.ipynb](../../notebooks/solid-mechanics/Phase1.ipynb) の演習3で配布した `stress_from_strain`（`voigt_to_tensor` を含む）
+- 発見の経緯：演習Notebookの関数をライブラリ [src/mechlite/](../../src/mechlite/) へ整理する作業で、Codex が検出した
+
+### 内容
+
+- `stress_from_strain` は、構成行列で求めた**応力**のVoigtベクトルを、**工学せん断ひずみ**用の逆変換 `voigt_to_tensor` へ渡している。このため、せん断応力の成分が半分になる。例：$E=210000$ MPa、$\nu=0.3$、$\varepsilon_{xy}=0.001$ の純せん断では、正しい $\sigma_{xy}=2G\varepsilon_{xy}\approx161.5$ MPa に対して 80.8 MPa を返す。
+- 演習3-4は側面自由の一軸応力状態（対角成分だけ）を扱うため、この不具合は結果に現れなかった。学習者の解答の誤りではなく、配布したコードの誤りである。
+
+### 分類と反映判断
+
+- **分類**：演習（配布コードの誤り）。
+- **提出Notebook**：変更しない。提出物として当時の状態を保つ。
+- **ライブラリ**：`tensors` で応力用とひずみ用の逆変換を分け、せん断成分を含むテストで正しい値を確認した。旧Notebookの関数がせん断を半分にすることも、回帰テストで固定している。
+- **本文**：[phase1-stress-strain.md](texts/phase1-stress-strain.md) にはこの関数が出てこないため、修正不要。[用語集](../glossary.md#voigt表記)には規約で係数が変わるという一般的な注意しかなかったため、本教材の規約と、逆変換を取り違えたときの影響を追記した。
+- **PROFILE・ROADMAP**：更新なし。配布コードの検証の問題であり、学習特性ではない。
+- **今後の配布コード**：応力・ひずみの変換を含むコードは、せん断成分を含むテストケースで検証してから配布する。
+
+### 次回確認する問い
+
+1. 応力とひずみのVoigt表記で、せん断成分の係数が異なる理由を、仕事の共役性（$\boldsymbol{\sigma}:\boldsymbol{\varepsilon}=\{\sigma\}^T\{\varepsilon\}$）から説明できるか。
+
 ## 2026-09-24 — Phase 6 初稿
 
 ### 対象
