@@ -1,11 +1,15 @@
 [project]
 name = "cae-lab"
 version = "0.1.0"
+requires-python = ">=3.10"
 dependencies = ["numpy"]
 
+[project.optional-dependencies]
+notebooks = ["matplotlib", "ipykernel"]
+
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
-where = ["libs"]
+where = ["src"]
