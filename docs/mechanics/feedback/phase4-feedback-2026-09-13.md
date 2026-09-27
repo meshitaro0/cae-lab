@@ -1,6 +1,6 @@
 # Phase 4 採点・詳細フィードバック（2026-09-13）
 
-対象：[提出Notebook](../../notebooks/Phase4.ipynb)。提出回答と保存出力を確認し、関数定義をメモリ上で取り出して再現計算した。Notebookは編集していない。
+対象：[提出Notebook](../../../notebooks/mechanics/Phase4.ipynb)。提出回答と保存出力を確認し、関数定義をメモリ上で取り出して再現計算した。Notebookは編集していない。
 
 ## 評価：79 / 100
 

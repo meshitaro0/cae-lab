@@ -1,3 +1,2 @@
-numpy
-scipy
-matplotlib
+# Run from the repository root. Dependency names live in pyproject.toml.
+-e .[notebooks]

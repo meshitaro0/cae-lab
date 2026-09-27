@@ -2,3 +2,6 @@ __pycache__/
 *.pyc
 .venv/
 datasets/
+build/
+dist/
+*.egg-info/

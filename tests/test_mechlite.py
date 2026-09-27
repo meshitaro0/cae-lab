@@ -6,14 +6,12 @@ Run from the repository root: python -m unittest discover -s tests -v
 import ast
 import json
 from pathlib import Path
-import sys
 import unittest
 
 import numpy as np
 from numpy.testing import assert_allclose, assert_array_equal
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "libs"))
 
 from mechlite import IsotropicElastic, J2Material, J2State
 from mechlite import bar, elasticity, members, plasticity, review, tensors
@@ -21,7 +19,7 @@ from mechlite import bar, elasticity, members, plasticity, review, tensors
 
 def notebook_functions(phase):
     """Load only function definitions, without executing plots or experiments."""
-    notebook = json.loads((ROOT / "notebooks" / f"Phase{phase}.ipynb").read_text(encoding="utf-8"))
+    notebook = json.loads((ROOT / "notebooks" / "mechanics" / f"Phase{phase}.ipynb").read_text(encoding="utf-8"))
     env = {"np": np, "I": np.eye(3), "E": 210000.0, "nu": 0.3, "sigma_y0": 250.0, "H": 1000.0}
     nodes = []
     for cell in notebook["cells"]:

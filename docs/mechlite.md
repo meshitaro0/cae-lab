@@ -1,6 +1,6 @@
 # mechlite の使い方と移植範囲
 
-`libs/mechlite/` は、Phase 1〜6 の演習から抽出した NumPy ベースの計算ライブラリです。
+`src/mechlite/` は、Phase 1〜6 の演習から抽出した NumPy ベースの計算ライブラリです。
 提出済みNotebookは答案・当時の実装・実験の記録として保持します。今後の再利用コードはこのライブラリ側で管理し、新しいNotebookやスクリプトから import します。
 学習用の小規模計算が対象で、実ソルバの代替や自動的な安全性判定は行いません。
 
@@ -13,7 +13,7 @@ python -m pip install -e .
 python -m unittest discover -s tests -v
 ```
 
-テストは標準ライブラリの unittest を使い、未インストールでも `libs/` から読み込めます。
+テストは標準ライブラリの unittest を使い、インストールした `mechlite` を読み込みます。
 Notebookとの比較では関数定義のみをメモリ上で読み込み、描画や長い演習セルは実行しません。
 Notebookそのものの全セル再実行とは別の検証です。
 
@@ -90,15 +90,15 @@ J2Stateは入力配列をコピーし、通常の要素代入を禁止します�
 
 有限変形、整合接線、全体非線形FEM、疎行列、梁・シェル要素、CAD入出力は今回の範囲外です。
 
-## リポジトリ構成の追加提案（未実施）
+## リポジトリ構成（2026-09-27更新）
 
-| 優先度 | 提案 | 理由・実施タイミング |
+| 項目 | 状態 | 配置・運用 |
 | --- | --- | --- |
-| 高 | CAD教材を `docs/texts/cad/`、演習を `notebooks/cad/` に置く | CADの初稿作成時に新設。既存Phaseの移動・改名はせず、既存リンクと答案の履歴を保つ |
-| 高 | 依存宣言を `pyproject.toml` へ集約し、描画・Notebook・将来のCADをoptional dependenciesにする | 現状はライブラリのNumPyと `requirements.txt` のNumPy/SciPy/Matplotlibが二重管理。CAD環境が決まった時点でextrasを設計し、requirementsはその参照へ統一する |
-| 中 | `docs/texts/phase*-feedback-*.md` を `docs/feedback/` へ分離 | 本文と採点履歴が同じ一覧に並ぶ。移動する場合はREADME・ロードマップ・ログからのリンクを一括更新して確認する |
-| 中 | 学習ログを分野別ファイルと索引へ分割する | `learning-log.md` は600行超。CADログの開始時に索引化し、過去の原文・採点訂正履歴は保持する。AGENTS.mdの必読先も同時に更新する |
-| 中 | ライブラリテストをCIへ追加する | いまの `unittest` コマンドを使える。採点済みNotebookは自動書換えせず、ライブラリの物理的性質と回帰を継続確認する |
-| 低 | `libs/` から `src/` への名前変更 | 現状のsetuptools設定でパッケージを分離できているため、名前変更だけの効果は小さい。今は既存の `libs/mechlite/` を活用する |
+| Part単位の教材・演習 | 実施 | [固体力学・CAE Part](mechanics/README.md)を `docs/mechanics/` と `notebooks/mechanics/` に集約。CADは初稿作成時に `docs/cad/` と `notebooks/cad/` を新設 |
+| フィードバック | 実施 | [mechanics/feedback/](mechanics/feedback/) に採点文書を移動。本文は `mechanics/texts/` |
+| 学習ログ | 実施 | [Part別ログ](mechanics/learning-log.md)と[全体の索引](learning-log.md)に分離。過去の記録を保持し、参照パスを更新 |
+| 依存宣言 | 実施 | `pyproject.toml` にNumPyと `notebooks` extra（SciPy・Matplotlib）を集約。`requirements.txt` は `-e .[notebooks]` を参照 |
+| CI | 設定追加 | [GitHub Actions](../.github/workflows/tests.yml)でpush・PR・手動実行時にLinux／Windows・Python 3.12の通常インストールとunittestを実行。GitHub上の初回実行はpush後に確認 |
+| パッケージ配置 | 実施 | `src/mechlite/` に移動し、setuptoolsの探索先を更新。テストはインストール済みパッケージを利用 |
 
 CADエンジンを使う場合は、その依存を力学のNumPy計算へ混在させず、形状処理・メッシュへの受け渡しを担うモジュールを分けるのが適切です。具体的なCADソフトと学習範囲は次の教材設計時に決めます。
