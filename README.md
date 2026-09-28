@@ -28,11 +28,15 @@ CAE の結果を力学から読み解き、最小のソルバ実装で確かめ�
 
 採点・フィードバックの記録は [docs/solid-mechanics/reviews/](docs/solid-mechanics/reviews/) にあります。
 
-## CADトラック（設計済み・Phase 1未着手）
+## CADトラック（Phase 1 初稿）
 
 [ロードマップ](docs/cad/ROADMAP.md) / [学習ログ](docs/cad/learning-log.md)
 
 受け取ったCAD形状の表現（B-spline・NURBS・B-rep）を自作実装で確かめ、パラメトリック形状・メッシュ化・CAE向け形状処理・自動化パイプラインを経て、等幾何解析で固体力学トラックと合流する全8 Phaseの構成です。
+
+| Phase | 本文 | 演習 |
+| --- | --- | --- |
+| 1 | [曲線：STEPの `B_SPLINE_CURVE_WITH_KNOTS` を自分で評価する](docs/cad/texts/phase1-curves.md) | [Phase1.ipynb](notebooks/cad/Phase1.ipynb) |
 
 ## Setup
 
