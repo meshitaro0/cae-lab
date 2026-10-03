@@ -6,7 +6,7 @@
 | トラック | ディレクトリ | 中心の問い | 状態 |
 | --- | --- | --- | --- |
 | 固体力学 | [solid-mechanics](solid-mechanics/ROADMAP.md) | CAEの出力値を力学から読み解けるか | Phase 1〜6 完了（2026-09-27） |
-| CAD | [cad](cad/ROADMAP.md) | 受け取った形状は何で表現され、どこで近似され、解析と自動化にどう効くか | Phase 1初稿作成済み（2026-09-27）。全8 Phase、Pythonのオープンソース（NumPy・build123d・gmsh）で学ぶ |
+| CAD | [cad](cad/ROADMAP.md) | 受け取った形状は何で表現され、どこで近似され、解析と自動化にどう効くか | Phase 1：98 / 100、再提出待ち（2026-10-03）。全8 Phase、Pythonのオープンソース（NumPy・build123d・gmsh）で学ぶ |
 
 CADトラックの設計時の留意点：CADエンジンなどの依存は `mechlite` の力学計算（NumPyのみ）に混ぜず、形状処理やメッシュへの受け渡しは別のモジュールまたはパッケージに分ける。
 
