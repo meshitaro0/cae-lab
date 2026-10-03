@@ -28,7 +28,7 @@ CAE の結果を力学から読み解き、最小のソルバ実装で確かめ�
 
 採点・フィードバックの記録は [docs/solid-mechanics/reviews/](docs/solid-mechanics/reviews/) にあります。
 
-## CADトラック（Phase 1 初稿）
+## CADトラック（Phase 1 完了）
 
 [ロードマップ](docs/cad/ROADMAP.md) / [学習ログ](docs/cad/learning-log.md)
 
